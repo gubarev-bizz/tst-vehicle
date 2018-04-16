@@ -1,0 +1,28 @@
+{
+    "name": "gubarev-bizz/tst",
+    "authors": [
+        {
+            "name": "Anton Gubarev",
+            "email": "gubarev.bizz@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "GubarevBizz\\Transport\\": "src/"
+        },
+        "classmap": ["GubarevBizz/Transport/"],
+        "exclude-from-classmap": [
+            "**/Tests/"
+        ]
+    },
+    "require": {
+        "php": "7.1",
+        "phpunit/phpunit": "^7.1"
+    },
+    "minimum-stability": "stable",
+    "config": {
+        "platform": {
+            "php": "7.1"
+        }
+    }
+}
