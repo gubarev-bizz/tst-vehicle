@@ -1,0 +1,11 @@
+php7:
+  build: .
+  dockerfile: /etc/docker/Dockerfile
+  volumes:
+    - ./sites:/var/www/html
+    - ./etc/php:/usr/local/etc/php
+    - ./etc/apache2/apache2.conf:/etc/apache2/conf-enabled/apache2.conf
+    - ./etc/apache2/hosts.conf:/etc/apache2/sites-enabled/hosts.conf
+  ports:
+    - "80:80"
+    - "8080:8080"

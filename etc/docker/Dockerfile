@@ -1,0 +1,33 @@
+FROM php:7.1-apache
+
+RUN apt-get update && \
+    apt-get install -y \
+        zlib1g-dev
+
+RUN apt-get install -y \
+        libxml2-dev
+
+RUN /usr/local/bin/docker-php-ext-install zip xmlwriter
+RUN apt-get install libssl-dev -y
+RUN /usr/local/bin/docker-php-ext-install zip
+
+
+# Install mcrypt
+RUN apt-get install -y libmcrypt-dev
+RUN docker-php-ext-install mcrypt
+
+# Install GD
+#RUN apt-get install -y libfreetype6-dev libjpeg62-turbo-dev libpng12-dev
+
+# Install XSL
+RUN apt-get install -y libxslt-dev
+RUN docker-php-ext-install xsl
+
+# Install intl
+RUN apt-get install -y libicu-dev
+#RUN pecl install intl
+RUN docker-php-ext-install intl
+
+RUN a2enmod rewrite
+RUN usermod -u 1000 www-data
+RUN usermod -G staff www-data

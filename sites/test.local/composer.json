@@ -10,7 +10,9 @@
         "psr-4": {
             "GubarevBizz\\Transport\\": "src/"
         },
-        "classmap": ["GubarevBizz/Transport/"],
+        "classmap": [
+          "GubarevBizz/Transport"
+        ],
         "exclude-from-classmap": [
             "**/Tests/"
         ]
