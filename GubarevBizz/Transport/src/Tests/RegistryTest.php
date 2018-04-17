@@ -2,8 +2,9 @@
 
 namespace Transport\Tests;
 
+use GubarevBizz\Transport\Autoloader;
 use GubarevBizz\Transport\Registry;
-use GubarevBizz\Transport\src\Vehicle\KamazVehicle;
+use InvalidArgumentException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -14,25 +15,43 @@ class RegistryTest extends TestCase
 
     public function setUp()
     {
-        parent::setUp();
-        $this->registry = $this->createMock(Registry::class);
+        Autoloader::autoload();
+        $this->registry = new Registry();
     }
 
     /**
      * @test
      */
-    public function testSuccessGetVehicles()
+    public function testAddVehicleIfNameIsFail()
     {
-        $this->registry->method('addVehicle')
-            ->with(Registry::TYPE_KAMAZ);
-        $this->registry->method('getVehicles')
-            ->willReturn($this->getObjectVehicle());
-
-        $this->assertEquals($this->getObjectVehicle(), $this->registry->getVehicles());
+        $name = 'blabla';
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("Vehicle with {$name} not supported");
+        $this->registry::addVehicle($name);
     }
 
-    private function getObjectVehicle()
+    /**
+     * @test
+     */
+    public function testAddVehicleIfAlreadyExists()
     {
-        return new KamazVehicle(Registry::TYPE_KAMAZ);
+        $object = $this->registry;
+        $object::addVehicle(Registry::TYPE_BMW);
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Vehicle with the given name already exists');
+        $object::addVehicle(Registry::TYPE_BMW);
+    }
+
+    /**
+     * @test
+     */
+    public function testGetVehiclesSuccess()
+    {
+        $object = $this->registry;
+        $object::addVehicle(Registry::TYPE_HELICOPTER);
+        $object::addVehicle(Registry::TYPE_KAMAZ);
+        $object::addVehicle(Registry::TYPE_BMW, true);
+
+        $this->assertCount(3, $object->getVehicles());
     }
 }
