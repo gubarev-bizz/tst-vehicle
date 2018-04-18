@@ -1,42 +1,44 @@
 <?php
 
-namespace GubarevBizz\Transport\src\Vehicle;
+namespace GubarevBizz\Transport\Vehicle;
 
 use GubarevBizz\Transport\Registry;
-use GubarevBizz\Transport\Vehicle\AbstractVehicle;
+use GubarevBizz\Transport\Vehicle\Traits\VehicleTrait;
 
-class KamazVehicle extends AbstractVehicle
+class KamazVehicle implements VehicleItemInterface, VehicleInterface
 {
+    use VehicleTrait;
+
     /** @return string */
-    public function move()
+    public function move() :string
     {
-        return $this->getName() . ' moveing';
+        return $this->getType() . ' moveing';
     }
 
     /** @return string */
-    public function emptyLoads()
+    public function emptyLoads() :string
     {
-        return $this->getName() . ' refuel ' . $this->getObject();
+        return $this->getType() . ' refuel ' . $this->getObject();
     }
 
     /** {@inheritdoc} */
     public function render()
     {
-        return [
-            $this->move(),
-            $this->stop(),
-            $this->emptyLoads(),
-        ];
+        echo $this->move() . PHP_EOL;
+        echo $this->stop() . PHP_EOL;
+        echo $this->emptyLoads() . PHP_EOL;
+        echo $this->stop() . PHP_EOL;
+        echo $this->refuel() . PHP_EOL;
     }
 
     /** {@inheritdoc} */
-    public function getObject()
+    public function getObject() :string
     {
         return 'KAMAZ';
     }
 
     /** {@inheritdoc} */
-    public function getType()
+    public function getType() :string
     {
         return Registry::TYPE_KAMAZ;
     }

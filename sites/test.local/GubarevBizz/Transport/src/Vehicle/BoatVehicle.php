@@ -1,41 +1,43 @@
 <?php
 
-namespace GubarevBizz\Transport\src\Vehicle;
+namespace GubarevBizz\Transport\Vehicle;
 
 use GubarevBizz\Transport\Registry;
-use GubarevBizz\Transport\Vehicle\AbstractVehicle;
+use GubarevBizz\Transport\Vehicle\Traits\VehicleTrait;
 
-class BoatVehicle extends AbstractVehicle
+class BoatVehicle implements VehicleItemInterface, VehicleInterface
 {
+    use VehicleTrait;
+
     /** @return string */
-    public function swim()
+    public function swim() :string
     {
-        return $this->getName() . ' swimming';
+        return $this->getType() . ' swimming';
     }
 
     /** @return string */
-    public function move()
+    public function move() :string
     {
-        return $this->getName() . ' moveing';
+        return $this->getType() . ' moveing';
     }
 
-    /** @return array */
+    /** {@inheritdoc} */
     public function render()
     {
-        return [
-            $this->swim(),
-            $this->move(),
-        ];
+        echo $this->swim() . PHP_EOL;
+        echo $this->move() . PHP_EOL;
+        echo $this->stop() . PHP_EOL;
+        echo $this->refuel() . PHP_EOL;
     }
 
-    /** @return string */
-    public function getObject()
+    /** {@inheritdoc} */
+    public function getObject() :string
     {
         return 'BOAT';
     }
 
-    /** @return string */
-    public function getType()
+    /** {@inheritdoc} */
+    public function getType() :string
     {
         return Registry::TYPE_BOAT;
     }

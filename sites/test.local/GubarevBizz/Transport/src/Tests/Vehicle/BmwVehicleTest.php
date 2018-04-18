@@ -24,12 +24,10 @@ class BmwVehicleTest extends TestCase
     {
         $this->assertEquals('BMW', $this->object->getObject());
         $this->assertEquals(Registry::TYPE_BMW, $this->object->getType());
-        $this->assertEquals(Registry::TYPE_BMW, $this->object->getName());
         $this->assertEquals(Registry::TYPE_BMW . ' stopped', $this->object->stop());
         $this->assertEquals(Registry::TYPE_BMW . ' moveing', $this->object->move());
         $this->assertEquals(Registry::TYPE_BMW . ' music switched on', $this->object->musicOn());
         $this->assertEquals(Registry::TYPE_BMW . ' refuel BMW', $this->object->refuel());
-        $this->assertCount(2, $this->object->render());
     }
 
     /**
@@ -37,6 +35,6 @@ class BmwVehicleTest extends TestCase
      */
     private function getObject()
     {
-        return new BmwVehicle(Registry::TYPE_BMW);
+        return new BmwVehicle();
     }
 }

@@ -3,38 +3,41 @@
 namespace GubarevBizz\Transport\Vehicle;
 
 use GubarevBizz\Transport\Registry;
+use GubarevBizz\Transport\Vehicle\Traits\VehicleTrait;
 
-class BmwVehicle extends AbstractVehicle
+class BmwVehicle implements VehicleItemInterface, VehicleInterface
 {
+    use VehicleTrait;
+
     /** @return string */
-    public function move()
+    public function move() :string
     {
-        return $this->getName() . ' moveing';
+        return $this->getType() . ' moveing';
     }
 
     /** @return string */
-    public function musicOn()
+    public function musicOn() :string
     {
-        return $this->getName() . ' music switched on';
+        return $this->getType() . ' music switched on';
     }
 
-    /** @return array */
+    /** {@inheritdoc} */
     public function render()
     {
-        return [
-            $this->move(),
-            $this->musicOn(),
-        ];
+        echo $this->move() . PHP_EOL;
+        echo $this->musicOn() . PHP_EOL;
+        echo $this->stop() . PHP_EOL;
+        echo $this->refuel() . PHP_EOL;
     }
 
-    /** @return string */
-    public function getObject()
+    /** {@inheritdoc} */
+    public function getObject() :string
     {
         return 'BMW';
     }
 
-    /** @return string */
-    public function getType()
+    /** {@inheritdoc} */
+    public function getType() :string
     {
         return Registry::TYPE_BMW;
     }

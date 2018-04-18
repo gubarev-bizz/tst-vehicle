@@ -1,48 +1,50 @@
 <?php
 
-namespace GubarevBizz\Transport\src\Vehicle;
+namespace GubarevBizz\Transport\Vehicle;
 
 use GubarevBizz\Transport\Registry;
-use GubarevBizz\Transport\Vehicle\AbstractVehicle;
+use GubarevBizz\Transport\Vehicle\Traits\VehicleTrait;
 
-class HelicopterVehicle extends AbstractVehicle
+class HelicopterVehicle implements VehicleItemInterface, VehicleInterface
 {
+    use VehicleTrait;
+
     /** @return string */
-    public function takeOff()
+    public function takeOff() :string
     {
-        return $this->getName() . ' took off';
+        return $this->getType() . ' took off';
     }
 
     /** @return string */
-    public function landing()
+    public function landing() :string
     {
-        return $this->getName() . ' landing';
+        return $this->getType() . ' landing';
     }
 
     /** @return string */
-    public function fly()
+    public function fly() :string
     {
-        return $this->getName() . ' flying';
+        return $this->getType() . ' flying';
     }
 
     /** {@inheritdoc} */
     public function render()
     {
-        return [
-            $this->takeOff(),
-            $this->landing(),
-            $this->fly(),
-        ];
+        echo $this->takeOff() . PHP_EOL;
+        echo $this->landing() . PHP_EOL;
+        echo $this->fly() . PHP_EOL;
+        echo $this->stop() . PHP_EOL;
+        echo $this->refuel() . PHP_EOL;
     }
 
     /** {@inheritdoc} */
-    public function getObject()
+    public function getObject() :string
     {
         return 'HELICOPTER';
     }
 
     /** {@inheritdoc} */
-    public function getType()
+    public function getType() :string
     {
         return Registry::TYPE_HELICOPTER;
     }
